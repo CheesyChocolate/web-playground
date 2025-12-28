@@ -1,0 +1,99 @@
+:root {
+    --bg-color: #101010;
+    --text-color: #f0f0f0;
+    --accent-color: #50FF50;
+    --card-bg: #1a1a1a;
+    --hover-bg: #252525;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+header {
+    padding: 2rem;
+    text-align: center;
+    border-bottom: 1px solid #333;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.subtitle {
+    margin-top: 0.5rem;
+    color: #888;
+    font-size: 1rem;
+}
+
+main {
+    width: 100%;
+    max-width: 800px;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    background-color: var(--hover-bg);
+    border-color: var(--accent-color);
+    box-shadow: 0 4px 15px rgba(80, 255, 80, 0.1);
+}
+
+.card h2 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.5rem;
+}
+
+.card p {
+    margin: 0;
+    color: #aaa;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.tag {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.25rem 0.5rem;
+    background-color: #333;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: var(--accent-color);
+}
+
+footer {
+    margin-top: auto;
+    padding: 2rem;
+    color: #555;
+    font-size: 0.8rem;
+}
