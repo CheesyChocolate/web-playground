@@ -125,10 +125,18 @@ canvas {
 .color-box {
 	width: 10px;
 	height: 10px;
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 5px;
 }
 
-#data-display {
-	width: 100%;
+.s1-bg { background-color: #50FF50; }
+.s2-bg { background-color: #FF5050; }
+
+#row-s1 { color: #50FF50; }
+#row-s2 { color: #FF5050; }
+
+#data-display {	width: 100%;
 	background: #1a1a1a;
 	border-top: 1px solid #333;
 	padding: 10px;

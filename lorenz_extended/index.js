@@ -46,6 +46,13 @@ const ui = {
             x: document.querySelector('#row-s2 .val-x'),
             y: document.querySelector('#row-s2 .val-y'),
             z: document.querySelector('#row-s2 .val-z'),
+            t: document.querySelector('#row-s2 .val-t'),
+        },
+        s1: {
+            x: document.querySelector('#row-s1 .val-x'),
+            y: document.querySelector('#row-s1 .val-y'),
+            z: document.querySelector('#row-s1 .val-z'),
+            t: document.querySelector('#row-s1 .val-t'),
         }
     }
 };
@@ -66,6 +73,7 @@ class LorenzSystem {
         this.x = this.initial.x;
         this.y = this.initial.y;
         this.z = this.initial.z;
+        this.t = 0;
         this.points = [];
         this.maxPoints = 3000;
     }
@@ -78,6 +86,7 @@ class LorenzSystem {
         this.x += dx;
         this.y += dy;
         this.z += dz;
+        this.t += dt;
 
         this.points.push({ x: this.x, y: this.y, z: this.z });
         if (this.points.length > this.maxPoints) {
@@ -207,10 +216,12 @@ function updateTable() {
     ui.table.s1.x.textContent = system1.x.toFixed(3);
     ui.table.s1.y.textContent = system1.y.toFixed(3);
     ui.table.s1.z.textContent = system1.z.toFixed(3);
+    ui.table.s1.t.textContent = system1.t.toFixed(3);
 
     ui.table.s2.x.textContent = system2.x.toFixed(3);
     ui.table.s2.y.textContent = system2.y.toFixed(3);
     ui.table.s2.z.textContent = system2.z.toFixed(3);
+    ui.table.s2.t.textContent = system2.t.toFixed(3);
 }
 
 function updateParams() {
