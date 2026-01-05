@@ -6,7 +6,7 @@ body {
 	flex-direction: column;
 	align-items: center;
 	font-family: sans-serif;
-	overflow: hidden;
+	overflow: hidden; /* Prevent scrolling if possible */
 	height: 100vh;
 	width: 100vw;
 }
@@ -20,9 +20,10 @@ body {
 	flex-wrap: wrap;
 	justify-content: center;
 	gap: 15px;
-	align-items: flex-start;
+	align-items: flex-start; /* Align items to top to handle different heights */
 	box-sizing: border-box;
 	z-index: 10;
+	flex-shrink: 0;
 }
 
 .system-controls {
@@ -92,6 +93,8 @@ button.active {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	overflow: hidden; /* Ensure canvas stays within */
+	min-height: 0; /* Important for flex items to shrink */
 }
 
 canvas {
@@ -122,4 +125,34 @@ canvas {
 .color-box {
 	width: 10px;
 	height: 10px;
+}
+
+#data-display {
+	width: 100%;
+	background: #1a1a1a;
+	border-top: 1px solid #333;
+	padding: 10px;
+	box-sizing: border-box;
+	flex-shrink: 0;
+	display: flex;
+	justify-content: center;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+	max-width: 600px;
+	font-size: 0.9rem;
+	font-family: monospace;
+}
+
+th {
+	text-align: left;
+	padding: 5px 10px;
+	color: #888;
+	border-bottom: 1px solid #333;
+}
+
+td {
+	padding: 5px 10px;
 }

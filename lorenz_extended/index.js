@@ -35,7 +35,19 @@ const ui = {
     btnPause: document.getElementById('btn-pause'),
     btnReset: document.getElementById('btn-reset'),
     viewBtns: document.querySelectorAll('.view-btn'),
-    legend: document.getElementById('legend')
+    legend: document.getElementById('legend'),
+    table: {
+        s1: {
+            x: document.querySelector('#row-s1 .val-x'),
+            y: document.querySelector('#row-s1 .val-y'),
+            z: document.querySelector('#row-s1 .val-z'),
+        },
+        s2: {
+            x: document.querySelector('#row-s2 .val-x'),
+            y: document.querySelector('#row-s2 .val-y'),
+            z: document.querySelector('#row-s2 .val-z'),
+        }
+    }
 };
 
 let viewMode = 'single'; // 'single', 'overlap', 'side-by-side'
@@ -188,6 +200,17 @@ function loop() {
     }
 
     requestAnimationFrame(loop);
+    updateTable();
+}
+
+function updateTable() {
+    ui.table.s1.x.textContent = system1.x.toFixed(3);
+    ui.table.s1.y.textContent = system1.y.toFixed(3);
+    ui.table.s1.z.textContent = system1.z.toFixed(3);
+
+    ui.table.s2.x.textContent = system2.x.toFixed(3);
+    ui.table.s2.y.textContent = system2.y.toFixed(3);
+    ui.table.s2.z.textContent = system2.z.toFixed(3);
 }
 
 function updateParams() {
