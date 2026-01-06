@@ -6,11 +6,19 @@ body {
 	flex-direction: column;
 	align-items: center;
 	font-family: sans-serif;
-	overflow: hidden; /* Prevent scrolling if possible */
-	height: 100vh;
+	overflow-x: hidden;
+	overflow-y: auto;
+	min-height: 100vh;
 	width: 100vw;
 }
 
+#viewport-container {
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	flex-direction: column;
+	flex-shrink: 0;
+}
 #controls {
 	padding: 10px;
 	background: #1a1a1a;
@@ -163,4 +171,84 @@ th {
 
 td {
 	padding: 5px 10px;
+}
+
+.s1-text { color: #50FF50; }
+.s2-text { color: #FF5050; }
+
+.system-title {
+	font-size: 0.8rem;
+	margin-bottom: 5px;
+}
+
+.initial-pos-group {
+	margin-top: 5px;
+}
+
+.global-btn-group {
+	margin-bottom: 5px;
+}
+
+.history-header {
+	text-align: center;
+}
+
+#records-container {
+	width: 100%;
+	background: #1a1a1a;
+	padding: 20px;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border-top: 2px solid #333;
+}
+
+.records-wrapper {
+	display: flex;
+	gap: 20px;
+	width: 100%;
+	max-width: 1200px;
+	justify-content: center;
+}
+
+.record-table-container {
+	flex: 1;
+	max-height: 400px;
+	overflow-y: auto;
+	border: 1px solid #333;
+	background: #101010;
+}
+
+.record-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.85rem;
+	font-family: monospace;
+}
+
+.record-table th {
+	position: sticky;
+	top: 0;
+	background: #222;
+	z-index: 1;
+	padding: 8px;
+	text-align: right;
+	border-bottom: 2px solid #333;
+}
+
+.record-table td {
+	padding: 6px 8px;
+	text-align: right;
+	border-bottom: 1px solid #222;
+}
+
+.record-table tr:hover {
+	background: #1a1a1a;
+	cursor: pointer;
+}
+
+.record-table tr.selected-row {
+	background: #333;
+	border-left: 3px solid #fff;
 }

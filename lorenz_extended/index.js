@@ -41,18 +41,15 @@ const ui = {
             x: document.querySelector('#row-s1 .val-x'),
             y: document.querySelector('#row-s1 .val-y'),
             z: document.querySelector('#row-s1 .val-z'),
+            t: document.querySelector('#row-s1 .val-t'),
+            body: document.querySelector('#table-records-s1 tbody'),
         },
         s2: {
             x: document.querySelector('#row-s2 .val-x'),
             y: document.querySelector('#row-s2 .val-y'),
             z: document.querySelector('#row-s2 .val-z'),
             t: document.querySelector('#row-s2 .val-t'),
-        },
-        s1: {
-            x: document.querySelector('#row-s1 .val-x'),
-            y: document.querySelector('#row-s1 .val-y'),
-            z: document.querySelector('#row-s1 .val-z'),
-            t: document.querySelector('#row-s1 .val-t'),
+            body: document.querySelector('#table-records-s2 tbody'),
         }
     }
 };
@@ -62,7 +59,8 @@ let paused = false;
 let angle = 0;
 
 class LorenzSystem {
-    constructor(x, y, z, color, sigma, rho, beta) {
+    constructor(x, y, z, color, sigma, rho, beta, id) {
+        this.id = id;
         this.initial = { x, y, z };
         this.params = { sigma, rho, beta };
         this.reset();
@@ -74,8 +72,14 @@ class LorenzSystem {
         this.y = this.initial.y;
         this.z = this.initial.z;
         this.t = 0;
+        this.lastRecordT = -1; // Record at t=0
         this.points = [];
         this.maxPoints = 3000;
+        this.marker = null;
+
+        if (ui.table[this.id] && ui.table[this.id].body) {
+            ui.table[this.id].body.innerHTML = '';
+        }
     }
 
     update(dt) {
@@ -92,11 +96,52 @@ class LorenzSystem {
         if (this.points.length > this.maxPoints) {
             this.points.shift();
         }
+
+        if (this.t - this.lastRecordT >= 1.0) {
+            this.addRecord();
+            this.lastRecordT = this.t;
+        }
+    }
+
+    addRecord() {
+        const row = document.createElement('tr');
+        const record = { x: this.x, y: this.y, z: this.z };
+
+        row.innerHTML = `
+            <td>${this.t.toFixed(1)}</td>
+            <td>${this.x.toFixed(2)}</td>
+            <td>${this.y.toFixed(2)}</td>
+            <td>${this.z.toFixed(2)}</td>
+        `;
+
+        row.addEventListener('click', () => {
+            const isSelected = row.classList.contains('selected-row');
+
+            const siblings = row.parentNode.children;
+            for (let tr of siblings) {
+                tr.classList.remove('selected-row');
+            }
+
+            if (isSelected) {
+                this.marker = null;
+            } else {
+                row.classList.add('selected-row');
+                this.marker = record;
+            }
+        });
+
+        const body = ui.table[this.id].body;
+        body.insertBefore(row, body.firstChild); // Newest at top
+
+        // Limit records to 100 for performance
+        if (body.children.length > 100) {
+            body.removeChild(body.lastChild);
+        }
     }
 }
 
-const system1 = new LorenzSystem(0.1, 0, 0, '#50FF50', 10, 28, 8/3);
-const system2 = new LorenzSystem(0.101, 0, 0, '#FF5050', 10, 28, 8/3);
+const system1 = new LorenzSystem(0.1, 0, 0, '#50FF50', 10, 28, 8/3, 's1');
+const system2 = new LorenzSystem(0.101, 0, 0, '#FF5050', 10, 28, 8/3, 's2');
 
 const systems = [system1, system2];
 
@@ -165,6 +210,25 @@ function drawSystem(system, cx, cy, w, h) {
         ctx.shadowColor = system.color;
         ctx.fillRect(head2.x - 3, head2.y - 3, 6, 6);
         ctx.shadowBlur = 0;
+    }
+
+    if (system.marker) {
+        const pm = project(system.marker, cx, cy, w, h, angle);
+        if (pm) {
+            ctx.strokeStyle = '#FFFFFF';
+            ctx.lineWidth = 2;
+
+            ctx.beginPath();
+            ctx.arc(pm.x, pm.y, 6, 0, Math.PI * 2);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(pm.x - 4, pm.y);
+            ctx.lineTo(pm.x + 4, pm.y);
+            ctx.moveTo(pm.x, pm.y - 4);
+            ctx.lineTo(pm.x, pm.y + 4);
+            ctx.stroke();
+        }
     }
 }
 
