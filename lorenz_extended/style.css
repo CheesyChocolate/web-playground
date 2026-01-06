@@ -252,3 +252,45 @@ td {
 	background: #333;
 	border-left: 3px solid #fff;
 }
+
+#formula-container {
+	border-left: 1px solid #333;
+	padding-left: 15px;
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	align-items: center;
+}
+
+#formula-container h2 {
+	margin: 0;
+	color: #888;
+	font-size: 0.75rem;
+	text-transform: uppercase;
+}
+
+.formula-description {
+	font-size: 0.7rem;
+	color: #666;
+	margin-top: 2px;
+}
+
+.equations {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	font-family: 'Times New Roman', Times, serif;
+	font-size: 0.95rem;
+	background: transparent;
+	padding: 0;
+	border-radius: 0;
+	border: none;
+}
+
+.equation {
+	letter-spacing: 0.5px;
+}
+
+.derivative { color: #aaa; }
+.parameter { color: #50FF50; }
+.variable { color: #fff; font-style: italic; }
